@@ -2,6 +2,9 @@ package com.joebruzek.onerepmax
 
 import android.content.Context
 import android.net.Uri
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.text.SimpleDateFormat
 import java.util.*
 
 /*
@@ -28,7 +31,21 @@ object MaxCalculator {
      * @return 0 for success, else failure
      */
     fun readFile(context: Context, uri: Uri) : Int {
-        //TODO: implement
+        //clear the map - in case it previously held values
+        map = hashMapOf()
+
+        try {
+            context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                BufferedReader(InputStreamReader(inputStream)).useLines { lines ->
+                    lines.forEach { processLine(it) }
+                }
+            }
+
+        } catch (e: Exception) {
+            println("Reading CSV Error!")
+            e.printStackTrace()
+            return 1
+        }
         return 0
     }
 
@@ -39,6 +56,62 @@ object MaxCalculator {
      * @param line - the line to process
      */
     fun processLine(line: String) {
-        //TODO: implement
+        val tokens = line.split(",")
+        if (tokens.isNotEmpty()) {
+            val oneRM = calculateOneRepMax(tokens[3].toInt(), tokens[4].toInt())
+            val date = getDate(tokens[0])
+
+            //if this is the first of this exercise, add to map and exit
+            if (map[tokens[1]] == null) {
+                map[tokens[1]] = mutableListOf(Pair(date, oneRM))
+                return
+            } else {
+                //get the index of the last item in the list
+                val lastIndex: Int = if (map[tokens[1]] != null) {
+                    map[tokens[1]]!!.lastIndex
+                } else {
+                    0
+                }
+
+                val prev1RM = map[tokens[1]]!![lastIndex].second
+                val prevDate = map[tokens[1]]!![lastIndex].first
+
+                if (prevDate == date) {
+                    //if this is the same date but a larger 1RM, update the pair
+                    if (oneRM > prev1RM) {
+                        map[tokens[1]]!![lastIndex] = Pair(date, oneRM)
+                    }
+                } else {
+                    //different date, append to list
+                    map[tokens[1]]!!.add(Pair(date, oneRM))
+                }
+            }
+        }
+    }
+
+    /*
+     * Calculate the 1 rep max for this rep/weight pair using the Brzycki formula
+     * abstracted for readability
+     *
+     * @param reps - the number of reps
+     * @param weight - the weight lifted
+     *
+     * @return the calculated 1rm
+     */
+    private fun calculateOneRepMax(reps: Int, weight: Int) : Int {
+        return ((weight * (36.toDouble() / (37 - reps))).toInt())
+    }
+
+    /*
+     * Turn a string date into a Date object
+     * Assumes date format "MMM dd yyyy"
+     *
+     * @param date - a string date in format "MMM dd yyyy"
+     *
+     * @return a date object
+     */
+    private fun getDate(date: String) : Date {
+        val parser = SimpleDateFormat("MMM dd yyyy")
+        return parser.parse(date)
     }
 }
