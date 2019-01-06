@@ -67,7 +67,6 @@ object MaxCalculator {
             //if this is the first of this exercise, add to map and exit
             if (map[tokens[1]] == null) {
                 map[tokens[1]] = mutableListOf(Pair(date, oneRM))
-                return
             } else {
                 //get the index of the last item in the list
                 val lastIndex: Int = if (map[tokens[1]] != null) {
