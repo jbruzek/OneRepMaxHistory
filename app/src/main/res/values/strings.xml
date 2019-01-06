@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">One Rep Max</string>
+    <string name="data_add">Add New Data</string>
 </resources>
