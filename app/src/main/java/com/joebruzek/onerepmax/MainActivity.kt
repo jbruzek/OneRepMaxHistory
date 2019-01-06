@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import com.joebruzek.onerepmax.fragments.ChartFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 /*
@@ -12,15 +13,48 @@ import kotlinx.android.synthetic.main.activity_main.*
  *
  * @author: Joe Bruzek - 1/5/2018
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),
+    com.joebruzek.onerepmax.fragments.ListFragment.OnListFragmentInteractionListener {
 
     companion object {
         const val BACK_ENABLED = "back_enabled"
         const val ITEM_TITLE = "item_title"
     }
 
-    var backEnabled: Boolean = false
-    var itemTitle: String = ""
+    private var backEnabled: Boolean = false
+    private var itemTitle: String = ""
+
+    /*
+     * Create the activity
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
+    }
+
+    /*
+     * There was an interaction with the ListFragment. Open the ChartFragment for the item that was pressed
+     *
+     * @param item - the OneRepMaxRecord of the item in the list that the user pressed
+     */
+    override fun onListFragmentInteraction(item: OneRepMaxRecord?) {
+        val newFragment = ChartFragment.newInstance(item!!.exercise)
+
+        val transaction = supportFragmentManager.beginTransaction()
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.container, newFragment)
+        transaction.addToBackStack(null)
+
+        // Commit the transaction
+        transaction.commit()
+
+        //update the toolbar
+        itemTitle = item?.exercise
+        putBackOnToolBar()
+    }
 
     /*
      * save the values needed to update the toolbar
@@ -49,15 +83,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             clearToolBar()
         }
-    }
-
-    /*
-     * Create the activity
-     */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
     }
 
     /*
