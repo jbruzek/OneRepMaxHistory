@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(),
         transaction.commit()
 
         //update the toolbar
-        itemTitle = item?.exercise
+        itemTitle = item.exercise
         putBackOnToolBar()
     }
 
