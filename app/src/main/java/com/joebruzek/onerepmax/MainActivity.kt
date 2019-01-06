@@ -7,6 +7,11 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 
+/*
+ * Main activity for the app. All fragments are served from here
+ *
+ * @author: Joe Bruzek - 1/5/2018
+ */
 class MainActivity : AppCompatActivity() {
 
     companion object {
@@ -17,6 +22,9 @@ class MainActivity : AppCompatActivity() {
     var backEnabled: Boolean = false
     var itemTitle: String = ""
 
+    /*
+     * save the values needed to update the toolbar
+     */
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
 
@@ -24,6 +32,9 @@ class MainActivity : AppCompatActivity() {
         outState?.putString(ITEM_TITLE, itemTitle)
     }
 
+    /*
+     * restore the activity to where it was before teardown
+     */
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
 
@@ -40,23 +51,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /*
+     * Create the activity
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
     }
 
+    /*
+     * override so that we can control the display of the toolbar
+     */
     override fun onBackPressed() {
         super.onBackPressed()
         clearToolBar()
     }
 
+    /*
+     * inflate menu button
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.navigation, menu)
         return true
     }
 
+    /*
+     * Selected menu button
+     */
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.data_add -> {
@@ -67,6 +90,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /*
+     * Put a back arrow on the top toolbar and update the title to be the value of $itemTitle
+     */
     private fun putBackOnToolBar() {
         backEnabled = true
         supportActionBar?.title = itemTitle
@@ -74,6 +100,9 @@ class MainActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {onBackPressed()}
     }
 
+    /*
+     * remove the back arrow from the toolbar and set the title to be activity title
+     */
     private fun clearToolBar() {
         backEnabled = false
         toolbar.navigationIcon = null
