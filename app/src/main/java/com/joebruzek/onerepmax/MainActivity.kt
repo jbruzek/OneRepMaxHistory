@@ -1,11 +1,16 @@
 package com.joebruzek.onerepmax
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import com.joebruzek.onerepmax.fragments.ChartFragment
+import com.joebruzek.onerepmax.fragments.ListFragment
+import com.joebruzek.onerepmax.util.ProcessFileTask
 import kotlinx.android.synthetic.main.activity_main.*
 
 /*
@@ -14,9 +19,10 @@ import kotlinx.android.synthetic.main.activity_main.*
  * @author: Joe Bruzek - 1/5/2018
  */
 class MainActivity : AppCompatActivity(),
-    com.joebruzek.onerepmax.fragments.ListFragment.OnListFragmentInteractionListener {
+    com.joebruzek.onerepmax.fragments.ListFragment.OnListFragmentInteractionListener, ProcessFileTask.ProcessFileTaskListener {
 
     companion object {
+        const val RETURN_CODE = 4201
         const val BACK_ENABLED = "back_enabled"
         const val ITEM_TITLE = "item_title"
     }
@@ -40,7 +46,6 @@ class MainActivity : AppCompatActivity(),
      */
     override fun onListFragmentInteraction(item: OneRepMaxRecord?) {
         val newFragment = ChartFragment.newInstance(item!!.exercise)
-
         val transaction = supportFragmentManager.beginTransaction()
 
         // Replace whatever is in the fragment_container view with this fragment,
@@ -108,11 +113,47 @@ class MainActivity : AppCompatActivity(),
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.data_add -> {
-                //TODO: select a file
+                //open file picker
+                val intent = Intent(Intent.ACTION_GET_CONTENT)
+                intent.type = "text/plain"
+                startActivityForResult(intent, RETURN_CODE)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    /*
+     * Get the result from the File Picking activity. Process the file
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RETURN_CODE && resultCode == Activity.RESULT_OK) {
+            data?.data?.also { uri ->
+                val task = ProcessFileTask(this)
+                task.caller = this
+                task.execute(uri)
+            }
+        }
+    }
+
+    /*
+     * ProcessFileTask has completed. Deal with the results
+     */
+    override fun processCompleted(result: Int) {
+        if (result > 0) {
+            Toast.makeText(this, getString(R.string.process_task_fail_message), Toast.LENGTH_LONG).show()
+            return
+        }
+
+        val newFragment = ListFragment()
+        val transaction = supportFragmentManager.beginTransaction()
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.container, newFragment)
+        transaction.commit()
+        clearToolBar()
     }
 
     /*
