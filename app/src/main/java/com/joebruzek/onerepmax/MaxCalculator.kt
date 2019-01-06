@@ -22,6 +22,9 @@ object MaxCalculator {
     // Each value is a list of Pair<Date, calculated 1RM>
     var map: HashMap<String, MutableList<Pair<Date, Int>>> = hashMapOf()
 
+    //This maps individual exercises to their all time max
+    var maxMap: MutableMap<String, Int> = hashMapOf()
+
     /*
      * Read a file and process it line by line into the map
      *
@@ -86,6 +89,34 @@ object MaxCalculator {
                     map[tokens[1]]!!.add(Pair(date, oneRM))
                 }
             }
+            //insert the value into the max map if it is greater
+            insertMaxIfGreater(tokens[1], oneRM)
+        }
+    }
+
+    /*
+     * Get a list of the max values for every exercise
+     *
+     * @return a list of OneRepMaxRecords
+     */
+    fun getMaxList() : List<OneRepMaxRecord> {
+        val list: MutableList<OneRepMaxRecord> = mutableListOf()
+        for ((exercise, max) in maxMap) {
+            list.add(OneRepMaxRecord(exercise,max))
+        }
+        //make immutable before returning
+        return list.toList()
+    }
+
+    /*
+     * Insert a new max into the max map IFF it is greater than the previous max for that exercise
+     *
+     * @param exercise - the name of the exercise
+     * @param max - the one rep max for that exercise
+     */
+    private fun insertMaxIfGreater(exercise: String, max: Int) {
+        if (maxMap[exercise] == null || (maxMap[exercise] != null && max > maxMap[exercise]!!)) {
+            maxMap[exercise] = max
         }
     }
 
