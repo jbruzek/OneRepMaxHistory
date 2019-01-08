@@ -4,10 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
+import com.joebruzek.onerepmax.adapters.MaxListAdapter
 import com.joebruzek.onerepmax.fragments.ChartFragment
 import com.joebruzek.onerepmax.fragments.ListFragment
 import com.joebruzek.onerepmax.util.ProcessFileTask
@@ -153,7 +155,19 @@ class MainActivity : AppCompatActivity(),
         // and add the transaction to the back stack so the user can navigate back
         transaction.replace(R.id.container, newFragment)
         transaction.commit()
+
+        updateData()
         clearToolBar()
+    }
+
+    /*
+     * update the data for the recyclerview, if present
+     */
+    private fun updateData() {
+        val recycler = findViewById<RecyclerView>(R.id.list)
+        if (recycler != null) {
+            (recycler!!.adapter as MaxListAdapter).updateData(MaxCalculator.getMaxList())
+        }
     }
 
     /*
