@@ -21,6 +21,7 @@ import com.joebruzek.onerepmax.adapters.MaxListAdapter
 class ListFragment : Fragment() {
 
     private var listener: OnListFragmentInteractionListener? = null
+    private var recycler: RecyclerView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,13 +29,10 @@ class ListFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = LinearLayoutManager(context)
-                adapter = MaxListAdapter(MaxCalculator.getMaxList(), listener)
-            }
-        }
+        recycler = view.findViewById(R.id.list)
+
+        recycler?.layoutManager = LinearLayoutManager(context)
+        recycler?.adapter = MaxListAdapter(MaxCalculator.getMaxList().toMutableList(), listener)
         return view
     }
 

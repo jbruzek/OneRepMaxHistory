@@ -34,8 +34,9 @@ object MaxCalculator {
      * @return 0 for success, else failure
      */
     fun readFile(context: Context, uri: Uri) : Int {
-        //clear the map - in case it previously held values
+        //clear the maps - in case they previously held values
         map = hashMapOf()
+        maxMap = hashMapOf()
 
         try {
             context.contentResolver.openInputStream(uri)?.use { inputStream ->

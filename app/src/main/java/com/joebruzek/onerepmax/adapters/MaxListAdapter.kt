@@ -1,5 +1,6 @@
 package com.joebruzek.onerepmax.adapters
 
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.TextView
 import com.joebruzek.onerepmax.OneRepMaxRecord
 import com.joebruzek.onerepmax.R
 import com.joebruzek.onerepmax.fragments.ListFragment
+import com.joebruzek.onerepmax.util.OneMaxRecordDiffUtil
 import kotlinx.android.synthetic.main.max_list_item.view.*
 
 /*
@@ -16,7 +18,7 @@ import kotlinx.android.synthetic.main.max_list_item.view.*
  * @author: Joe Bruzek - 1/5/2018
  */
 class MaxListAdapter(
-    private val mValues: List<OneRepMaxRecord>,
+    private val mValues: MutableList<OneRepMaxRecord>,
     private val mListener: ListFragment.OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<MaxListAdapter.ViewHolder>() {
 
@@ -25,10 +27,21 @@ class MaxListAdapter(
     init {
         mOnClickListener = View.OnClickListener { v ->
             val item = v.tag as OneRepMaxRecord
-            // Notify the active callbacks interface (the activity, if the fragment is attached to
-            // one) that an item has been selected.
             mListener?.onListFragmentInteraction(item)
         }
+    }
+
+    /*
+     * Update the data in the list using diffUtil
+     *
+     * @param: newData the new list of data to add
+     */
+    fun updateData(newData: List<OneRepMaxRecord>) {
+        val diffCallback = OneMaxRecordDiffUtil(newData, mValues)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        mValues.clear()
+        mValues.addAll(newData)
+        diffResult.dispatchUpdatesTo(this)
     }
 
     /*
