@@ -1,5 +1,6 @@
 package com.joebruzek.onerepmax
 
+import com.joebruzek.onerepmax.util.MaxCalculator
 import org.junit.Assert
 import org.junit.Test
 import org.junit.Before

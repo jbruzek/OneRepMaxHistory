@@ -4,10 +4,9 @@ import android.net.Uri
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import junit.framework.Assert.assertEquals
-import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import android.support.test.InstrumentationRegistry.getInstrumentation
+import com.joebruzek.onerepmax.util.MaxCalculator
 import java.io.File
 import java.io.InputStream
 

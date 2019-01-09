@@ -3,7 +3,6 @@ package com.joebruzek.onerepmax.util
 import android.content.Context
 import android.net.Uri
 import android.os.AsyncTask
-import com.joebruzek.onerepmax.MaxCalculator
 
 /*
  * A task that processes a file in a separate thread. Returns to the caller the result code from processing the file

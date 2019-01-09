@@ -1,7 +1,8 @@
-package com.joebruzek.onerepmax
+package com.joebruzek.onerepmax.util
 
 import android.content.Context
 import android.net.Uri
+import com.joebruzek.onerepmax.OneRepMaxRecord
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.text.SimpleDateFormat
@@ -62,7 +63,8 @@ object MaxCalculator {
     fun processLine(line: String) {
         val tokens = line.split(",")
         if (tokens.isNotEmpty()) {
-            val oneRM = calculateOneRepMax(tokens[3].toInt(), tokens[4].toInt())
+            val oneRM =
+                calculateOneRepMax(tokens[3].toInt(), tokens[4].toInt())
             val date = getDate(tokens[0])
 
             //if this is the first of this exercise, add to map and exit
@@ -102,7 +104,7 @@ object MaxCalculator {
     fun getMaxList() : List<OneRepMaxRecord> {
         val list: MutableList<OneRepMaxRecord> = mutableListOf()
         for ((exercise, max) in maxMap) {
-            list.add(OneRepMaxRecord(exercise,max))
+            list.add(OneRepMaxRecord(exercise, max))
         }
         //make immutable before returning
         return list.toList()

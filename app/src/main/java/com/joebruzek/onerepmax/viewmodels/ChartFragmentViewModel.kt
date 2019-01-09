@@ -8,7 +8,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
-import com.joebruzek.onerepmax.MaxCalculator
+import com.joebruzek.onerepmax.util.MaxCalculator
 import com.joebruzek.onerepmax.R
 import java.text.SimpleDateFormat
 import java.util.*

@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.joebruzek.onerepmax.adapters.MaxListAdapter
 import com.joebruzek.onerepmax.fragments.ChartFragment
 import com.joebruzek.onerepmax.fragments.ListFragment
+import com.joebruzek.onerepmax.util.MaxCalculator
 import com.joebruzek.onerepmax.util.ProcessFileTask
 import kotlinx.android.synthetic.main.activity_main.*
 
