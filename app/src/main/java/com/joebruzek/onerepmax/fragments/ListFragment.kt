@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.joebruzek.onerepmax.MaxCalculator
+import com.joebruzek.onerepmax.util.MaxCalculator
 import com.joebruzek.onerepmax.OneRepMaxRecord
 import com.joebruzek.onerepmax.R
 import com.joebruzek.onerepmax.adapters.MaxListAdapter
