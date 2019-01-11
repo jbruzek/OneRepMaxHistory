@@ -4,6 +4,9 @@ Find a history of your one rep max lift values by analyzing a file of workouts
 
 One rep max values are calculated using the Brzycki Formula.
 
+## Using the app
+There are a number of input files in the input directory, featuring various data scenarios to be viewed in the app. Transfering the files either to your Android device [or an emulator](https://stackoverflow.com/questions/30434451/how-to-push-files-to-an-emulator-instance-using-android-studio) allows them to be accessed from the file chooser in the application.
+
 ## Design Considerations
 #### One Activity Many Fragments
 With I/O 2018, Google has made it clear that the direction moving forward for Android applications is to use one activity and many fragments. This app is designed in that style, with the different screens of the application taking place within fragments, not separate activities.
