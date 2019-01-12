@@ -16,7 +16,7 @@ import com.joebruzek.onerepmax.adapters.MaxListAdapter
 /*
  * The list fragment displays a list of one rep max values
  *
- * @author Joe Bruzek - 1/5/2018
+ * @author Joe Bruzek - 1/5/2019
  */
 class ListFragment : Fragment() {
 

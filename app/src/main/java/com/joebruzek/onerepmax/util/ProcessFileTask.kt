@@ -7,7 +7,7 @@ import android.os.AsyncTask
 /*
  * A task that processes a file in a separate thread. Returns to the caller the result code from processing the file
  *
- * @author: Joe Bruzek - 1/6/2018
+ * @author: Joe Bruzek - 1/6/2019
  */
 class ProcessFileTask(val context: Context) : AsyncTask<Uri, Int, Int>() {
     lateinit var caller: ProcessFileTaskListener

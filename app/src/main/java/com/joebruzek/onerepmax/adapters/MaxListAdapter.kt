@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.max_list_item.view.*
 /*
  * Adapter for the 1rm list
  *
- * @author: Joe Bruzek - 1/5/2018
+ * @author: Joe Bruzek - 1/5/2019
  */
 class MaxListAdapter(
     private val mValues: MutableList<OneRepMaxRecord>,

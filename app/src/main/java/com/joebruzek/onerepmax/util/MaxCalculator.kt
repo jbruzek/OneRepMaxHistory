@@ -16,7 +16,7 @@ import java.util.*
  * Larger implementations (where we may import and save many different files worth of data to compare or view)
  * would demand larger storage, either locally (probably with SQLite) or remote with a server.
  *
- * @author Joe Bruzek 1/5/2018
+ * @author Joe Bruzek 1/5/2019
  */
 object MaxCalculator {
     // Each key in the map is an exercise

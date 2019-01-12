@@ -18,7 +18,7 @@ import com.joebruzek.onerepmax.viewmodels.ChartFragmentViewModel
 /*
  * This fragment displays a chart of the one rep max history for a movement
  *
- * @author: Joe Bruzek - 1/5/2018
+ * @author: Joe Bruzek - 1/5/2019
  */
 class ChartFragment : Fragment() {
 
