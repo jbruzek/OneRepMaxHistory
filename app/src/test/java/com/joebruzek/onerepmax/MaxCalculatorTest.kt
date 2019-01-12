@@ -8,7 +8,7 @@ import org.junit.Before
 /*
  * Tests for MaxCalculator
  *
- * @author Joe Bruzek - 1/5/2018
+ * @author Joe Bruzek - 1/5/2019
  */
 class MaxCalculatorTest {
 

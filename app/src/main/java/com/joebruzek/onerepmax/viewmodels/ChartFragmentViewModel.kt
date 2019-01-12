@@ -16,7 +16,7 @@ import java.util.*
 /*
  * View Model for the Graph Fragment. Stores graph data
  *
- * @author: Joe Bruzek - 1/5/2018
+ * @author: Joe Bruzek - 1/5/2019
  */
 class ChartFragmentViewModel(application: Application) : AndroidViewModel(application) {
     var name: String = ""

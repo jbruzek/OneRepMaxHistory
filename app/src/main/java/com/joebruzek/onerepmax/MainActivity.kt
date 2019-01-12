@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 /*
  * Main activity for the app. All fragments are served from here
  *
- * @author: Joe Bruzek - 1/5/2018
+ * @author: Joe Bruzek - 1/5/2019
  */
 class MainActivity : AppCompatActivity(),
     com.joebruzek.onerepmax.fragments.ListFragment.OnListFragmentInteractionListener, ProcessFileTask.ProcessFileTaskListener {

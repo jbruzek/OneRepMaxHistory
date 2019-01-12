@@ -7,6 +7,6 @@ package com.joebruzek.onerepmax
 /*
  * A record of an exercise and a max
  *
- * @author: Joe Bruzek 1/5/2018
+ * @author: Joe Bruzek 1/5/2019
  */
 data class OneRepMaxRecord(val exercise: String, val max: Int)
